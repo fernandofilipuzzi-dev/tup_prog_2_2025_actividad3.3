@@ -87,8 +87,34 @@ public partial class FormPrincipal : Form
         cmbTipoActividad.Items.Add("Ivernada");
     }
 
-    private void button1_Click(object sender, EventArgs e)
+
+    private void btnCamposDisponibles_Click(object sender, EventArgs e)
     {
-      
+        cmbCamposDisponibles.Items.Clear();
+        for (int idx = 0; idx < estancia.CantidadCampos; idx++)
+        {
+            Campo campo = estancia.VerCampo(idx);
+            cmbCamposDisponibles.Items.Add(campo);
+        }
+    }
+
+    private void cmbCamposDisponibles_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        Campo campoSeleccionado = cmbCamposDisponibles.SelectedItem as Campo;
+
+        if (campoSeleccionado != null)
+        {
+           
+        }
+    }
+
+    private void cmbParcelasDisponibles_SelectedIndexChanged(object sender, EventArgs e)
+    {
+       
+    }
+
+    private void btnAsignarParcela_Click(object sender, EventArgs e)
+    {
+
     }
 }

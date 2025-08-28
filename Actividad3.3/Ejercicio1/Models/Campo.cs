@@ -3,7 +3,7 @@ namespace Ejercicio1.Models;
 
 public class Campo
 {
-    public int Identificador { get; set; }
+    public string Identificador { get; set; }
     public double SuperficieTotal { get; set; }
     
     public Campo(string identificador, double superficieTotal)

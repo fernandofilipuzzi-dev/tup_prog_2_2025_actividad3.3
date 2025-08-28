@@ -52,9 +52,17 @@
             label6 = new Label();
             cmbTipoActividad = new ComboBox();
             btnAltaActividad = new Button();
+            groupBox4 = new GroupBox();
+            label12 = new Label();
+            cmbCamposDisponibles = new ComboBox();
+            btnCamposDisponibles = new Button();
+            label11 = new Label();
+            btnAsignarParcela = new Button();
+            cmbParcelasDisponibles = new ComboBox();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             groupBox3.SuspendLayout();
+            groupBox4.SuspendLayout();
             SuspendLayout();
             // 
             // btnCrearEstancia
@@ -288,11 +296,84 @@
             btnAltaActividad.UseVisualStyleBackColor = true;
             btnAltaActividad.Click += btnAltaActividad_Click;
             // 
+            // groupBox4
+            // 
+            groupBox4.Controls.Add(cmbParcelasDisponibles);
+            groupBox4.Controls.Add(label12);
+            groupBox4.Controls.Add(cmbCamposDisponibles);
+            groupBox4.Controls.Add(btnCamposDisponibles);
+            groupBox4.Controls.Add(label11);
+            groupBox4.Controls.Add(btnAsignarParcela);
+            groupBox4.Location = new Point(544, 39);
+            groupBox4.Name = "groupBox4";
+            groupBox4.Size = new Size(505, 193);
+            groupBox4.TabIndex = 15;
+            groupBox4.TabStop = false;
+            groupBox4.Text = "Alta de parcela  en Actividad(5)";
+            // 
+            // label12
+            // 
+            label12.AutoSize = true;
+            label12.Location = new Point(15, 40);
+            label12.Name = "label12";
+            label12.Size = new Size(100, 21);
+            label12.TabIndex = 19;
+            label12.Text = "Elegir campo";
+            // 
+            // cmbCamposDisponibles
+            // 
+            cmbCamposDisponibles.FormattingEnabled = true;
+            cmbCamposDisponibles.Location = new Point(165, 37);
+            cmbCamposDisponibles.Name = "cmbCamposDisponibles";
+            cmbCamposDisponibles.Size = new Size(140, 29);
+            cmbCamposDisponibles.TabIndex = 18;
+            cmbCamposDisponibles.SelectedIndexChanged += cmbCamposDisponibles_SelectedIndexChanged;
+            // 
+            // btnCamposDisponibles
+            // 
+            btnCamposDisponibles.Location = new Point(322, 29);
+            btnCamposDisponibles.Margin = new Padding(4);
+            btnCamposDisponibles.Name = "btnCamposDisponibles";
+            btnCamposDisponibles.Size = new Size(167, 61);
+            btnCamposDisponibles.TabIndex = 17;
+            btnCamposDisponibles.Text = "Actualizar campos disponibles";
+            btnCamposDisponibles.UseVisualStyleBackColor = true;
+            btnCamposDisponibles.Click += btnCamposDisponibles_Click;
+            // 
+            // label11
+            // 
+            label11.Location = new Point(15, 114);
+            label11.Name = "label11";
+            label11.Size = new Size(144, 53);
+            label11.TabIndex = 9;
+            label11.Text = "Elegir las parcelas disponibles";
+            // 
+            // btnAsignarParcela
+            // 
+            btnAsignarParcela.Location = new Point(322, 114);
+            btnAsignarParcela.Margin = new Padding(4);
+            btnAsignarParcela.Name = "btnAsignarParcela";
+            btnAsignarParcela.Size = new Size(167, 66);
+            btnAsignarParcela.TabIndex = 6;
+            btnAsignarParcela.Text = "Asignar Parcela";
+            btnAsignarParcela.UseVisualStyleBackColor = true;
+            btnAsignarParcela.Click += btnAsignarParcela_Click;
+            // 
+            // cmbParcelasDisponibles
+            // 
+            cmbParcelasDisponibles.FormattingEnabled = true;
+            cmbParcelasDisponibles.Location = new Point(165, 111);
+            cmbParcelasDisponibles.Name = "cmbParcelasDisponibles";
+            cmbParcelasDisponibles.Size = new Size(140, 29);
+            cmbParcelasDisponibles.TabIndex = 20;
+            cmbParcelasDisponibles.SelectedIndexChanged += cmbParcelasDisponibles_SelectedIndexChanged;
+            // 
             // FormPrincipal
             // 
             AutoScaleDimensions = new SizeF(9F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(525, 551);
+            ClientSize = new Size(1059, 551);
+            Controls.Add(groupBox4);
             Controls.Add(groupBox3);
             Controls.Add(groupBox2);
             Controls.Add(groupBox1);
@@ -310,6 +391,8 @@
             groupBox2.PerformLayout();
             groupBox3.ResumeLayout(false);
             groupBox3.PerformLayout();
+            groupBox4.ResumeLayout(false);
+            groupBox4.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -338,5 +421,17 @@
         private TextBox tbPeriodoActividad;
         private TextBox tbDescripcionActividad;
         private Label label8;
+        private GroupBox groupBox4;
+        private Label label9;
+        private TextBox textBox1;
+        private TextBox textBox2;
+        private Label label10;
+        private Label label11;
+        private ComboBox comboBox1;
+        private Button btnAsignarParcela;
+        private Label label12;
+        private ComboBox cmbCamposDisponibles;
+        private Button btnCamposDisponibles;
+        private ComboBox cmbParcelasDisponibles;
     }
 }
