@@ -3,5 +3,5 @@ namespace Ejercicio1.Models;
 
 public class Casco
 {
-    public string Encargado { get; set; }
+    public string Administrador { get; set; }
 }

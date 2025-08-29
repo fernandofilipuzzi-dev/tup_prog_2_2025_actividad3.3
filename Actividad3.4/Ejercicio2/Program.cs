@@ -1,4 +1,4 @@
-namespace Ejercicio1
+namespace Ejercicio2
 {
     internal static class Program
     {

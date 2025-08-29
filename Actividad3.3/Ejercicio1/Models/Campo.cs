@@ -1,53 +1,28 @@
-﻿
-namespace Ejercicio1.Models;
+﻿namespace Ejercicio1.Models;
 
-public class Campo
+public class Campo:IComparable
 {
-    public string Identificador { get; set; }
-    public double SuperficieTotal { get; set; }
-    
-    public Campo(string identificador, double superficieTotal)
-    {
-        Identificador = identificador;
-        SuperficieTotal = superficieTotal;
+    public string Identificado { get; set; }
+    public double Superficie { get; set; }
+
+    public Campo(string id, double sup)
+    { 
+        Identificado = id;
+        Superficie = sup;
     }
 
-    #region manejo de parcelas
-
-    List<Parcela> parcelas { get; set; } = new List<Parcela>();
-
-    public bool CrearParcela(string identificador, double superficie)
+    public int CompareTo(object otro)
     {
-        if (superficie < SuperficieOcupada() && BuscarParcela(identificador) < 0)
+        Campo otroCampo = otro as Campo;
+        if (otroCampo!=null)
         {
-            parcelas.Add(new Parcela(identificador, superficie));
-            return true;
+            return Identificado.CompareTo(otroCampo.Identificado);
         }
-        return false;
+        return 1;
     }
-    #endregion
-
-    #region manejo de superficie
-    public double SuperficieOcupada()
-    {
-        double superficieOcupada = 0;
-        foreach (var parcela in parcelas)
-        {
-            superficieOcupada += parcela.Superficie;
-        }
-        return superficieOcupada;
-    }
-    
-    public int BuscarParcela(string identificador)
-    {
-        parcelas.Sort();
-        int idx=parcelas.BinarySearch(new Parcela(identificador, 0));
-        return idx;
-    }
-    #endregion 
 
     public override string ToString()
     {
-        return $"{Identificador}({SuperficieTotal:f2})";
+        return $"{Identificado} ({Superficie:f2})";
     }
 }

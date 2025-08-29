@@ -1,17 +1,21 @@
 ﻿
 namespace Ejercicio1.Models;
 
-public class Actividad
+public abstract class Actividad
 {
     public int Periodo { get; set; }
-    public string Descripcion { get; set; } 
 
-    List<Parcela> lotesAsignados = new List<Parcela>();
+    public string Descripcion { get; set; }
 
-    public Actividad(int periodo, string descripcion)
-    {
-        Periodo = periodo;
-        Descripcion = descripcion;
+    protected List<Parcela> lotesAsignados =new List<Parcela> ();
+
+    abstract public double CalcularProduccion();
+    abstract public double CalcularRendimiento();
+
+    public Actividad(int periodo, string descripcion, Parcela p)
+    { 
+        this.Periodo = periodo;
+        this.Descripcion = descripcion;
+
     }
-
 }
