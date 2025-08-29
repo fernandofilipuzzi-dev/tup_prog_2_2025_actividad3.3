@@ -1,66 +1,86 @@
 ﻿
 using System.Collections;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Ejercicio1.Models;
 
 public class Estancia
 {
+    #region atributos y propiedades
     public string Nombre { get; set; }
+
+   
+
+    List<Actividad> actividades = new List<Actividad>();
 
     public Casco Casco { get; set; }
 
-    ArrayList puestos = new ArrayList();
-      
-    public Estancia(string nombre, string idCampo, double sup)
-    { 
-        this.Nombre=nombre;
-        this.Casco = new Casco();
-        this.Casco.Administrador = "Sin asignar";
+    Puesto[] puestos = new Puesto[100];
+    public int CantidadPuestos { get; private set; } = 0;
+    #endregion
 
-        Puesto puesto = new Puesto();
-        puestos.Add(puesto);
-        puesto.Responsable = "Sin asignar";
-
-        Campo campo = new Campo(idCampo, sup);
-        campos.Add(campo);
-
+    #region constructor
+    //(1)
+    public Estancia(string nombre, string idCampo1, double supCampo1)
+    {
+        Nombre = nombre;
+        campos.Add(new Campo(idCampo1, supCampo1));
+        Casco = new Casco();
+        Casco.Encargado = "No designado";
+        AgregarPuesto("No designado");
     }
+    #endregion
 
-    #region administrar los campos
+    #region manejo de actividades y campos
+    public bool AltaActividad(Actividad nueva)
+    { 
+       actividades.Add(nueva);
+        return true;
+    }
+    #endregion
+
+    #region manejo de campos
 
     ArrayList campos = new ArrayList();
-    public Campo AgregarCampos(string identificador, double superficie)
+
+    public Campo AgregarCampo(string identificador, double superficie)
     {
-        Campo nuevo = new Campo(identificador, superficie);
-        campos.Add(nuevo);
-        return nuevo;
+        Campo campo = new Campo(identificador, superficie);
+        campos.Add(campo);  
+        return campo;
     }
 
-    public Campo this[int idx]
+    public int CantidadCampos
     {
-        get {
-            return campos[idx] as Campo;
+        get
+        {
+            return campos.Count;
         }
     }
 
     public Campo VerCampo(int idx)
     {
-        if (campos!=null && idx >= 0 && idx < campos.Count)
+        if (idx >= 0 && idx < campos.Count)
         {
             return campos[idx] as Campo;
         }
         return null;
     }
+    #endregion
 
-    public int VerCantidadCampos()
+    #region manejo de los puestos
+    public void AgregarPuesto(string encargado)
     {
-        if (campos != null)
-        {
-            return campos.Count;
-        }
-        return 0;
+        Puesto puesto = new Puesto();
+        puesto.Encargado = encargado;
+        puestos[CantidadPuestos] = puesto;
+        CantidadPuestos++; 
     }
 
+    public Puesto VerPuesto(int idx)
+    { 
+        if(idx>=0 && idx<CantidadPuestos)
+            return puestos[idx];
+        return null;
+    }
     #endregion 
 }
