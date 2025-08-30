@@ -1,6 +1,6 @@
 ﻿namespace Ejercicio1.Vistas
 {
-    partial class FormDatosActividad
+    partial class FormActividadDatos
     {
         /// <summary>
         /// Required designer variable.

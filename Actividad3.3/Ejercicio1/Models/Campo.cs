@@ -18,13 +18,31 @@ public class Campo
 
     public bool CrearParcela(string identificador, double superficie)
     {
-        if (superficie < SuperficieOcupada() && BuscarParcela(identificador) < 0)
+        if ((superficie +SuperficieOcupada())<= SuperficieTotal && BuscarParcela(identificador) < 0)
         {
             parcelas.Add(new Parcela(identificador, superficie));
             return true;
         }
         return false;
     }
+
+    public int CantidadParcelas 
+    {
+        get 
+        {
+            return parcelas.Count;
+        }
+    }
+
+    public Parcela VerParcela(int idx)
+    {
+        if (idx >= 0 && idx < parcelas.Count)
+        {
+            return parcelas[idx];
+        }
+        return null;
+    }
+
     #endregion
 
     #region manejo de superficie

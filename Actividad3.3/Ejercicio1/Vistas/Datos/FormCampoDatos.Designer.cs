@@ -123,18 +123,18 @@
             btnAltaCampo.Text = "Confirmar";
             btnAltaCampo.UseVisualStyleBackColor = true;
             // 
-            // FormCamposDatos
+            // FormCampoDatos
             // 
             AutoScaleDimensions = new SizeF(10F, 18F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(512, 214);
+            ClientSize = new Size(513, 221);
             Controls.Add(button2);
             Controls.Add(btnAltaCampo);
             Controls.Add(groupBox2);
             Font = new Font("Verdana", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Margin = new Padding(4, 3, 4, 3);
-            Name = "FormCamposDatos";
+            Name = "FormCampoDatos";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "FormCamposDatos";
             groupBox2.ResumeLayout(false);

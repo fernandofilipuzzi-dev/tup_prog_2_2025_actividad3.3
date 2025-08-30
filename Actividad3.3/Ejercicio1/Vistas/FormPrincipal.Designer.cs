@@ -36,6 +36,8 @@
             verDatosToolStripMenuItem = new ToolStripMenuItem();
             camposToolStripMenuItem1 = new ToolStripMenuItem();
             administrarCamposToolStripMenuItem = new ToolStripMenuItem();
+            administracionGeneralToolStripMenuItem = new ToolStripMenuItem();
+            informesToolStripMenuItem = new ToolStripMenuItem();
             contextMenuStrip1.SuspendLayout();
             menuStrip1.SuspendLayout();
             SuspendLayout();
@@ -54,10 +56,11 @@
             // 
             // menuStrip1
             // 
-            menuStrip1.Items.AddRange(new ToolStripItem[] { estanciaToolStripMenuItem, camposToolStripMenuItem1 });
+            menuStrip1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            menuStrip1.Items.AddRange(new ToolStripItem[] { estanciaToolStripMenuItem, camposToolStripMenuItem1, administracionGeneralToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(819, 24);
+            menuStrip1.Size = new Size(458, 29);
             menuStrip1.TabIndex = 18;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -65,34 +68,47 @@
             // 
             estanciaToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { verDatosToolStripMenuItem });
             estanciaToolStripMenuItem.Name = "estanciaToolStripMenuItem";
-            estanciaToolStripMenuItem.Size = new Size(62, 20);
+            estanciaToolStripMenuItem.Size = new Size(78, 25);
             estanciaToolStripMenuItem.Text = "Estancia";
             // 
             // verDatosToolStripMenuItem
             // 
             verDatosToolStripMenuItem.Name = "verDatosToolStripMenuItem";
-            verDatosToolStripMenuItem.Size = new Size(123, 22);
+            verDatosToolStripMenuItem.Size = new Size(147, 26);
             verDatosToolStripMenuItem.Text = "Ver Datos";
             // 
             // camposToolStripMenuItem1
             // 
             camposToolStripMenuItem1.DropDownItems.AddRange(new ToolStripItem[] { administrarCamposToolStripMenuItem });
             camposToolStripMenuItem1.Name = "camposToolStripMenuItem1";
-            camposToolStripMenuItem1.Size = new Size(63, 20);
+            camposToolStripMenuItem1.Size = new Size(79, 25);
             camposToolStripMenuItem1.Text = "Campos";
             // 
             // administrarCamposToolStripMenuItem
             // 
             administrarCamposToolStripMenuItem.Name = "administrarCamposToolStripMenuItem";
-            administrarCamposToolStripMenuItem.Size = new Size(183, 22);
+            administrarCamposToolStripMenuItem.Size = new Size(223, 26);
             administrarCamposToolStripMenuItem.Text = "Administrar Campos";
             administrarCamposToolStripMenuItem.Click += administrarCamposToolStripMenuItem_Click;
+            // 
+            // administracionGeneralToolStripMenuItem
+            // 
+            administracionGeneralToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { informesToolStripMenuItem });
+            administracionGeneralToolStripMenuItem.Name = "administracionGeneralToolStripMenuItem";
+            administracionGeneralToolStripMenuItem.Size = new Size(185, 25);
+            administracionGeneralToolStripMenuItem.Text = "Administracion General";
+            // 
+            // informesToolStripMenuItem
+            // 
+            informesToolStripMenuItem.Name = "informesToolStripMenuItem";
+            informesToolStripMenuItem.Size = new Size(142, 26);
+            informesToolStripMenuItem.Text = "Informes";
             // 
             // FormPrincipal
             // 
             AutoScaleDimensions = new SizeF(9F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(819, 432);
+            ClientSize = new Size(458, 181);
             Controls.Add(menuStrip1);
             Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             FormBorderStyle = FormBorderStyle.FixedSingle;
@@ -119,5 +135,7 @@
         private ToolStripMenuItem verDatosToolStripMenuItem;
         private ToolStripMenuItem camposToolStripMenuItem1;
         private ToolStripMenuItem administrarCamposToolStripMenuItem;
+        private ToolStripMenuItem administracionGeneralToolStripMenuItem;
+        private ToolStripMenuItem informesToolStripMenuItem;
     }
 }

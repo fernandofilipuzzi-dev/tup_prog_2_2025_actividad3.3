@@ -1,6 +1,7 @@
 using Ejercicio1.Models;
 using Ejercicio1.Vistas;
 using System.Configuration;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 
 namespace Ejercicio1;
@@ -19,9 +20,7 @@ public partial class FormPrincipal : Form
         //inicia el sistema pide los datos del establecimiento
         AltaEstancia();
     }
-
- 
-
+    
     private void administrarCamposToolStripMenuItem_Click(object sender, EventArgs e)
     {
         FormCamposAdm fCamposAdm = new FormCamposAdm();
@@ -36,8 +35,9 @@ public partial class FormPrincipal : Form
         //mostrando listado de campos
         fCamposAdm.ShowDialog();
 
-        bool continua = fCamposAdm.DialogResult == DialogResult.TryAgain ||
-                        fCamposAdm.DialogResult == DialogResult.TryAgain;
+        bool continua = fCamposAdm.DialogResult == DialogResult.Retry ||
+                        fCamposAdm.DialogResult == DialogResult.TryAgain ||
+                        fCamposAdm.DialogResult == DialogResult.Continue;
         
         while (continua)
         {
@@ -63,10 +63,18 @@ public partial class FormPrincipal : Form
                 }
             }
 
+            //administrar un campo
+            else if (fCamposAdm.DialogResult == DialogResult.Continue)
+            {
+                int idx = fCamposAdm.lsbCampos.SelectedIndex;
+                AdministrarUnCampo(idx);
+            }
+
             fCamposAdm.ShowDialog();
 
             continua = fCamposAdm.DialogResult == DialogResult.Retry ||
-                       fCamposAdm.DialogResult == DialogResult.TryAgain;
+                       fCamposAdm.DialogResult == DialogResult.TryAgain ||
+                       fCamposAdm.DialogResult == DialogResult.Continue;
         }
     }
 
@@ -151,6 +159,74 @@ public partial class FormPrincipal : Form
         //verifico si cancelo la configuración de la estancia - 
         if (estancia == null)
             Close();
+    }
+
+    protected void AdministrarUnCampo(int idxCampo)
+    {
+        if (idxCampo >=0)
+        {
+            FormUnCampoAdm formUnCampoAdm = new FormUnCampoAdm();
+
+            Campo campoSeleccionado = estancia.VerCampo(idxCampo);
+
+            for (int idx = 0; idx < campoSeleccionado.CantidadParcelas; idx++)
+            {
+                formUnCampoAdm.lsbParcelas.Items.Add(campoSeleccionado.VerParcela(idx));
+            }
+
+            formUnCampoAdm.ShowDialog();
+
+            bool enEdicion = formUnCampoAdm.DialogResult == DialogResult.Retry ||
+                                formUnCampoAdm.DialogResult == DialogResult.TryAgain;
+            while (enEdicion)
+            {
+
+                //actualizo el listado
+                if (formUnCampoAdm.DialogResult == DialogResult.Retry)
+                {
+                    formUnCampoAdm.lsbParcelas.Items.Clear();
+                    for (int idx = 0; idx < campoSeleccionado.CantidadParcelas; idx++)
+                    {
+                        formUnCampoAdm.lsbParcelas.Items.Add(campoSeleccionado.VerParcela(idx));
+                    }
+                }
+
+                //agregar parcela o particion
+                if (formUnCampoAdm.DialogResult == DialogResult.TryAgain)
+                {
+                    Parcela parcela=SolicitarDatosParcela();
+                    bool exito=campoSeleccionado.CrearParcela(parcela.Identificador, parcela.Superficie);
+                    if (exito)
+                    {
+                        formUnCampoAdm.lsbParcelas.Items.Add(parcela);
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se pudo realizar la partición.");
+                    }
+                }
+
+                formUnCampoAdm.ShowDialog();
+
+                enEdicion = formUnCampoAdm.DialogResult == DialogResult.Retry ||
+                                formUnCampoAdm.DialogResult == DialogResult.TryAgain;
+            }
+        }
+    }
+
+    public Parcela SolicitarDatosParcela()
+    {
+        FormParcelaDatos formParcelaDatos = new FormParcelaDatos();
+
+        if (formParcelaDatos.ShowDialog() == DialogResult.OK)
+        {
+            string id = formParcelaDatos.tbIdentificadorCampo.Text;
+            double superficie = Convert.ToDouble(formParcelaDatos.tbSuperficieCampo.Text);
+
+            Parcela parcela=new Parcela(id, superficie);
+            return parcela;
+        }
+        return null;
     }
 
     #endregion

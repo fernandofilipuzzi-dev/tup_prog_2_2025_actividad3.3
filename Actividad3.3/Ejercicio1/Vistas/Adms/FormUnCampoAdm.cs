@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Ejercicio1.Vistas
 {
-    public partial class FormDatosParcela : Form
+    public partial class FormUnCampoAdm : Form
     {
-        public FormDatosParcela()
+        public FormUnCampoAdm()
         {
             InitializeComponent();
         }
