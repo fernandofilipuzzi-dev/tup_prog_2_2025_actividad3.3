@@ -5,20 +5,9 @@ namespace Ejercicio1.Models;
 
 public class Estancia
 {
-    #region atributos y propiedades
     public string Nombre { get; set; }
-
-   
-
-    List<Actividad> actividades = new List<Actividad>();
-
-    public Casco Casco { get; set; }
-
-    Puesto[] puestos = new Puesto[100];
-    public int CantidadPuestos { get; private set; } = 0;
-    #endregion
-
-    #region constructor
+    
+    #region Creación de la estancia
     //(1)
     public Estancia(string nombre, string idCampo1, double supCampo1)
     {
@@ -30,15 +19,42 @@ public class Estancia
     }
     #endregion
 
-    #region manejo de actividades y campos
-    public bool AltaActividad(Actividad nueva)
-    { 
-       actividades.Add(nueva);
-        return true;
+    #region Administración del casco y puestos
+    public Casco Casco { get; set; }
+
+    Puesto[] puestos = new Puesto[100];
+
+    public void AgregarPuesto(string encargado)
+    {
+        Puesto puesto = new Puesto();
+        puesto.Encargado = encargado;
+        puestos[CantidadPuestos] = puesto;
+        CantidadPuestos++;
     }
+
+    public Puesto VerPuesto(int idx)
+    {
+        if (idx >= 0 && idx < CantidadPuestos)
+            return puestos[idx];
+        return null;
+    }
+
+    public int CantidadPuestos { get; private set; } = 0;
     #endregion
 
-    #region manejo de campos
+    #region Administración de las actividades
+
+    List<Actividad> actividades = new List<Actividad>();
+
+    public bool AltaActividad(Actividad nueva)
+    {
+        actividades.Add(nueva);
+        return true;
+    }
+
+    #endregion
+
+    #region Administración de los campos
 
     ArrayList campos = new ArrayList();
 
@@ -67,20 +83,4 @@ public class Estancia
     }
     #endregion
 
-    #region manejo de los puestos
-    public void AgregarPuesto(string encargado)
-    {
-        Puesto puesto = new Puesto();
-        puesto.Encargado = encargado;
-        puestos[CantidadPuestos] = puesto;
-        CantidadPuestos++; 
-    }
-
-    public Puesto VerPuesto(int idx)
-    { 
-        if(idx>=0 && idx<CantidadPuestos)
-            return puestos[idx];
-        return null;
-    }
-    #endregion 
 }
