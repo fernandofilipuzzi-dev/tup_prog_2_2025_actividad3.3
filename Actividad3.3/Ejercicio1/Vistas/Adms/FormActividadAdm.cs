@@ -8,18 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Ejercicio1.Vistas
+namespace Ejercicio1.Vistas.Adms
 {
-    public partial class FormCamposAdm : Form
+    public partial class FormActividadAdm : Form
     {
-        public FormCamposAdm()
+        public FormActividadAdm()
         {
             InitializeComponent();
-        }
-
-        private void btnAdministrarCampo_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

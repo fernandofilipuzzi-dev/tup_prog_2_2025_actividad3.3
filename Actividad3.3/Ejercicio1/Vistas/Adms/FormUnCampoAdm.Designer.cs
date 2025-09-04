@@ -39,6 +39,8 @@
             label1 = new Label();
             lbSuperficieSinParcelar = new Label();
             lbSuperficieTotal = new Label();
+            lbIdentificador = new Label();
+            label4 = new Label();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             SuspendLayout();
@@ -46,7 +48,7 @@
             // button2
             // 
             button2.DialogResult = DialogResult.Cancel;
-            button2.Location = new Point(242, 436);
+            button2.Location = new Point(242, 490);
             button2.Margin = new Padding(6, 7, 6, 7);
             button2.Name = "button2";
             button2.Size = new Size(129, 49);
@@ -60,7 +62,7 @@
             groupBox1.Controls.Add(btnAltaCampo);
             groupBox1.Controls.Add(button1);
             groupBox1.Controls.Add(btnAdministrarCampo);
-            groupBox1.Location = new Point(12, 119);
+            groupBox1.Location = new Point(12, 166);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new Size(595, 314);
             groupBox1.TabIndex = 14;
@@ -111,13 +113,15 @@
             // 
             // groupBox2
             // 
+            groupBox2.Controls.Add(label4);
+            groupBox2.Controls.Add(lbIdentificador);
             groupBox2.Controls.Add(label2);
             groupBox2.Controls.Add(label1);
             groupBox2.Controls.Add(lbSuperficieSinParcelar);
             groupBox2.Controls.Add(lbSuperficieTotal);
             groupBox2.Location = new Point(12, 0);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(595, 113);
+            groupBox2.Size = new Size(595, 160);
             groupBox2.TabIndex = 15;
             groupBox2.TabStop = false;
             groupBox2.Text = "Estado del campo";
@@ -125,7 +129,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(25, 67);
+            label2.Location = new Point(55, 117);
             label2.Name = "label2";
             label2.Size = new Size(161, 21);
             label2.TabIndex = 3;
@@ -134,7 +138,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(65, 25);
+            label1.Location = new Point(95, 75);
             label1.Name = "label1";
             label1.Size = new Size(118, 21);
             label1.TabIndex = 2;
@@ -143,26 +147,41 @@
             // lbSuperficieSinParcelar
             // 
             lbSuperficieSinParcelar.BackColor = SystemColors.ActiveCaption;
-            lbSuperficieSinParcelar.Location = new Point(200, 64);
+            lbSuperficieSinParcelar.Location = new Point(230, 114);
             lbSuperficieSinParcelar.Name = "lbSuperficieSinParcelar";
             lbSuperficieSinParcelar.Size = new Size(181, 24);
             lbSuperficieSinParcelar.TabIndex = 1;
-            lbSuperficieSinParcelar.Text = "label1";
             // 
             // lbSuperficieTotal
             // 
             lbSuperficieTotal.BackColor = SystemColors.ActiveCaption;
-            lbSuperficieTotal.Location = new Point(200, 25);
+            lbSuperficieTotal.Location = new Point(230, 75);
             lbSuperficieTotal.Name = "lbSuperficieTotal";
             lbSuperficieTotal.Size = new Size(181, 24);
             lbSuperficieTotal.TabIndex = 0;
-            lbSuperficieTotal.Text = "label1";
+            // 
+            // lbIdentificador
+            // 
+            lbIdentificador.BackColor = SystemColors.ActiveCaption;
+            lbIdentificador.Location = new Point(230, 37);
+            lbIdentificador.Name = "lbIdentificador";
+            lbIdentificador.Size = new Size(181, 24);
+            lbIdentificador.TabIndex = 4;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(113, 37);
+            label4.Name = "label4";
+            label4.Size = new Size(100, 21);
+            label4.TabIndex = 5;
+            label4.Text = "Identificador:";
             // 
             // FormUnCampoAdm
             // 
             AutoScaleDimensions = new SizeF(9F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(619, 493);
+            ClientSize = new Size(619, 555);
             Controls.Add(groupBox2);
             Controls.Add(groupBox1);
             Controls.Add(button2);
@@ -188,7 +207,9 @@
         private GroupBox groupBox2;
         private Label label2;
         private Label label1;
-        private Label lbSuperficieSinParcelar;
-        private Label lbSuperficieTotal;
+        private Label label4;
+        public Label lbIdentificador;
+        public Label lbSuperficieSinParcelar;
+        public Label lbSuperficieTotal;
     }
 }

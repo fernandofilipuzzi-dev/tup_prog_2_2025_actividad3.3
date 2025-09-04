@@ -36,8 +36,13 @@
             verDatosToolStripMenuItem = new ToolStripMenuItem();
             camposToolStripMenuItem1 = new ToolStripMenuItem();
             administrarCamposToolStripMenuItem = new ToolStripMenuItem();
+            toolStripSeparator1 = new ToolStripSeparator();
             administracionGeneralToolStripMenuItem = new ToolStripMenuItem();
             informesToolStripMenuItem = new ToolStripMenuItem();
+            actividadesToolStripMenuItem = new ToolStripMenuItem();
+            puestosToolStripMenuItem = new ToolStripMenuItem();
+            cascoToolStripMenuItem = new ToolStripMenuItem();
+            toolStripSeparator2 = new ToolStripSeparator();
             contextMenuStrip1.SuspendLayout();
             menuStrip1.SuspendLayout();
             SuspendLayout();
@@ -79,17 +84,22 @@
             // 
             // camposToolStripMenuItem1
             // 
-            camposToolStripMenuItem1.DropDownItems.AddRange(new ToolStripItem[] { administrarCamposToolStripMenuItem });
+            camposToolStripMenuItem1.DropDownItems.AddRange(new ToolStripItem[] { administrarCamposToolStripMenuItem, toolStripSeparator1, actividadesToolStripMenuItem, toolStripSeparator2, puestosToolStripMenuItem, cascoToolStripMenuItem });
             camposToolStripMenuItem1.Name = "camposToolStripMenuItem1";
-            camposToolStripMenuItem1.Size = new Size(79, 25);
-            camposToolStripMenuItem1.Text = "Campos";
+            camposToolStripMenuItem1.Size = new Size(127, 25);
+            camposToolStripMenuItem1.Text = "Administracion";
             // 
             // administrarCamposToolStripMenuItem
             // 
             administrarCamposToolStripMenuItem.Name = "administrarCamposToolStripMenuItem";
-            administrarCamposToolStripMenuItem.Size = new Size(223, 26);
-            administrarCamposToolStripMenuItem.Text = "Administrar Campos";
+            administrarCamposToolStripMenuItem.Size = new Size(180, 26);
+            administrarCamposToolStripMenuItem.Text = "Campos";
             administrarCamposToolStripMenuItem.Click += administrarCamposToolStripMenuItem_Click;
+            // 
+            // toolStripSeparator1
+            // 
+            toolStripSeparator1.Name = "toolStripSeparator1";
+            toolStripSeparator1.Size = new Size(177, 6);
             // 
             // administracionGeneralToolStripMenuItem
             // 
@@ -101,8 +111,35 @@
             // informesToolStripMenuItem
             // 
             informesToolStripMenuItem.Name = "informesToolStripMenuItem";
-            informesToolStripMenuItem.Size = new Size(142, 26);
-            informesToolStripMenuItem.Text = "Informes";
+            informesToolStripMenuItem.Size = new Size(235, 26);
+            informesToolStripMenuItem.Text = "Informe productividad";
+            informesToolStripMenuItem.Click += informesToolStripMenuItem_Click;
+            // 
+            // actividadesToolStripMenuItem
+            // 
+            actividadesToolStripMenuItem.Name = "actividadesToolStripMenuItem";
+            actividadesToolStripMenuItem.Size = new Size(180, 26);
+            actividadesToolStripMenuItem.Text = "Actividades";
+            actividadesToolStripMenuItem.Click += actividadesToolStripMenuItem_Click;
+            // 
+            // puestosToolStripMenuItem
+            // 
+            puestosToolStripMenuItem.Name = "puestosToolStripMenuItem";
+            puestosToolStripMenuItem.Size = new Size(180, 26);
+            puestosToolStripMenuItem.Text = "Puestos";
+            puestosToolStripMenuItem.Click += puestosToolStripMenuItem_Click;
+            // 
+            // cascoToolStripMenuItem
+            // 
+            cascoToolStripMenuItem.Name = "cascoToolStripMenuItem";
+            cascoToolStripMenuItem.Size = new Size(180, 26);
+            cascoToolStripMenuItem.Text = "Casco";
+            cascoToolStripMenuItem.Click += cascoToolStripMenuItem_Click;
+            // 
+            // toolStripSeparator2
+            // 
+            toolStripSeparator2.Name = "toolStripSeparator2";
+            toolStripSeparator2.Size = new Size(156, 6);
             // 
             // FormPrincipal
             // 
@@ -137,5 +174,10 @@
         private ToolStripMenuItem administrarCamposToolStripMenuItem;
         private ToolStripMenuItem administracionGeneralToolStripMenuItem;
         private ToolStripMenuItem informesToolStripMenuItem;
+        private ToolStripSeparator toolStripSeparator1;
+        private ToolStripMenuItem actividadesToolStripMenuItem;
+        private ToolStripMenuItem puestosToolStripMenuItem;
+        private ToolStripMenuItem cascoToolStripMenuItem;
+        private ToolStripSeparator toolStripSeparator2;
     }
 }

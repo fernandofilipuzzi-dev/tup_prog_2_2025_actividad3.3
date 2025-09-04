@@ -1,5 +1,6 @@
 ﻿
 using System.Collections;
+using System.Runtime.InteropServices.Marshalling;
 
 namespace Ejercicio1.Models;
 
@@ -46,10 +47,32 @@ public class Estancia
 
     List<Actividad> actividades = new List<Actividad>();
 
-    public bool AltaActividad(Actividad nueva)
+    public Actividad AgregarActividad(int periodo, string descripcion, int tipo)
     {
-        actividades.Add(nueva);
-        return true;
+        Actividad nueva = null;
+        switch (tipo)
+        {
+            case 1:
+                nueva = new Agricola(periodo, descripcion);
+                break;
+        }
+
+        if(nueva!=null)
+            actividades.Add(nueva);
+        return nueva;
+    }
+
+    public int CantidadActividades
+    { 
+        get { return actividades.Count; }
+    }
+    public Actividad VerActividad(int idx)
+    {
+        if (idx >= 0 && idx < actividades.Count)
+        {
+            return actividades[idx] as Actividad;
+        }
+        return null;
     }
 
     #endregion
@@ -83,4 +106,5 @@ public class Estancia
     }
     #endregion
 
+    
 }

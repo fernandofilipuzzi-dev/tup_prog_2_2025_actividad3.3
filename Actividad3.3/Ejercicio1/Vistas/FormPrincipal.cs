@@ -1,5 +1,6 @@
 using Ejercicio1.Models;
 using Ejercicio1.Vistas;
+using Ejercicio1.Vistas.Adms;
 using System.Configuration;
 using System.Reflection.Metadata.Ecma335;
 using System.Text;
@@ -20,55 +21,86 @@ public partial class FormPrincipal : Form
         //inicia el sistema pide los datos del establecimiento
         AltaEstancia();
     }
-    
+
     private void administrarCamposToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        AdministrarCampos();
+    }
+
+    private void actividadesToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        AdministrarActividades();
+    }
+
+    private void informesToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+
+    }
+
+    private void puestosToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+
+    }
+
+    private void cascoToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+
+    }
+
+
+    #region administracion
+
+    protected void AdministrarCampos()
     {
         FormCamposAdm fCamposAdm = new FormCamposAdm();
 
-        //mostrar el listado de campos del establecimiento
+        #region mostrar el listado de campos del establecimiento
         for (int idx = 0; idx < estancia.CantidadCampos; idx++)
         {
             Campo campo = estancia.VerCampo(idx);
             fCamposAdm.lsbCampos.Items.Add(campo);
         }
+        #endregion
 
-        //mostrando listado de campos
+        #region mostrando listado de campos
         fCamposAdm.ShowDialog();
 
         bool continua = fCamposAdm.DialogResult == DialogResult.Retry ||
                         fCamposAdm.DialogResult == DialogResult.TryAgain ||
                         fCamposAdm.DialogResult == DialogResult.Continue;
-        
+
         while (continua)
         {
-            //listar campos
+            #region mostrar el listado de campos del establecimiento
             if (fCamposAdm.DialogResult == DialogResult.Retry)
             {
-                //mostrar el listado de campos del establecimiento
                 fCamposAdm.lsbCampos.Items.Clear();
                 for (int idx = 0; idx < estancia.CantidadCampos; idx++)
                 {
                     Campo campo = estancia.VerCampo(idx);
                     fCamposAdm.lsbCampos.Items.Add(campo);
-                }             
+                }
             }
+            #endregion
 
-            //agregar un campo al establecimiento
+            #region agregar un campo al establecimiento
             else if (fCamposAdm.DialogResult == DialogResult.TryAgain)
             {
-                Campo nuevo=SolicitarDatosCampo();
-                if (estancia.AgregarCampo(nuevo.Identificador, nuevo.SuperficieTotal)!=null)
+                Campo nuevo = SolicitarDatosCampo();
+                if (estancia.AgregarCampo(nuevo.Identificador, nuevo.SuperficieTotal) != null)
                 {
                     fCamposAdm.lsbCampos.Items.Add(nuevo);
                 }
             }
+            #endregion
 
-            //administrar un campo
+            #region administrar un campo
             else if (fCamposAdm.DialogResult == DialogResult.Continue)
             {
                 int idx = fCamposAdm.lsbCampos.SelectedIndex;
                 AdministrarUnCampo(idx);
             }
+            #endregion
 
             fCamposAdm.ShowDialog();
 
@@ -76,19 +108,129 @@ public partial class FormPrincipal : Form
                        fCamposAdm.DialogResult == DialogResult.TryAgain ||
                        fCamposAdm.DialogResult == DialogResult.Continue;
         }
+        #endregion
     }
 
-    #region casos reutilizables
+    protected void AdministrarUnCampo(int idxCampo)
+    {
+        if (idxCampo >= 0)
+        {
+            FormUnCampoAdm fCampoAdm = new FormUnCampoAdm();
+
+            Campo campoSeleccionado = estancia.VerCampo(idxCampo);
+
+            #region datos generales del campo 
+            fCampoAdm.lbIdentificador.Text = campoSeleccionado.Identificador;
+            fCampoAdm.lbSuperficieTotal.Text = campoSeleccionado.SuperficieTotal.ToString("0.00");
+            double libre = campoSeleccionado.SuperficieTotal - campoSeleccionado.SuperficieOcupada();
+            fCampoAdm.lbSuperficieSinParcelar.Text = libre.ToString("0.00");
+            #endregion
+
+            #region mostrar parcelas del campo
+            for (int idx = 0; idx < campoSeleccionado.CantidadParcelas; idx++)
+            {
+                fCampoAdm.lsbParcelas.Items.Add(campoSeleccionado.VerParcela(idx));
+            }
+            #endregion
+
+            fCampoAdm.ShowDialog();
+
+            bool enEdicion = fCampoAdm.DialogResult == DialogResult.Retry || fCampoAdm.DialogResult == DialogResult.TryAgain;
+            while (enEdicion)
+            {
+                #region actualizar listado
+                if (fCampoAdm.DialogResult == DialogResult.Retry)
+                {
+                    fCampoAdm.lsbParcelas.Items.Clear();
+                    for (int idx = 0; idx < campoSeleccionado.CantidadParcelas; idx++)
+                    {
+                        fCampoAdm.lsbParcelas.Items.Add(campoSeleccionado.VerParcela(idx));
+                    }
+                }
+                #endregion
+
+                #region agregar parcela o particion
+                if (fCampoAdm.DialogResult == DialogResult.TryAgain)
+                {
+                    Parcela parcela = SolicitarDatosParcela();
+                    bool exito = campoSeleccionado.CrearParcela(parcela.Identificador, parcela.Superficie);
+                    if (exito)
+                    {
+                        fCampoAdm.lsbParcelas.Items.Add(parcela);
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se pudo realizar la partición.");
+                    }
+                }
+                #endregion
+
+                fCampoAdm.ShowDialog();
+
+                enEdicion = fCampoAdm.DialogResult == DialogResult.Retry || fCampoAdm.DialogResult == DialogResult.TryAgain;
+            }
+        }
+    }
+
+    protected void AdministrarActividades()
+    {
+        FormActividadAdm fActividadAdm = new FormActividadAdm();
+
+        #region mostrar el listado de actividades productivas
+        for (int idx = 0; idx < estancia.CantidadActividades; idx++)
+        {
+            estancia.VerActividad(idx);
+        }
+        #endregion
+
+        fActividadAdm.ShowDialog();
+
+        bool continuar = fActividadAdm.DialogResult == DialogResult.Retry || 
+                            fActividadAdm.DialogResult == DialogResult.TryAgain;
+
+        while (continuar)
+        {
+            #region mostrar el listado de actividades
+            if (fActividadAdm.DialogResult == DialogResult.Retry)
+            {
+                #region mostrar el listado de actividades productivas
+                for (int idx = 0; idx < estancia.CantidadActividades; idx++)
+                {
+                    estancia.VerActividad(idx);
+                }
+                #endregion
+            }
+            #endregion
+
+            #region agregar una actividad
+            else if (fActividadAdm.DialogResult == DialogResult.TryAgain)
+            {
+                Actividad nuevo = SolicitarDatosActividad();
+                if (estancia.AgregarActividad(nuevo.Periodo, nuevo.Descripcion, 0) != null)//teminar!!
+                {
+                    fActividadAdm.lsbActividades.Items.Add(nuevo);
+                }
+            }
+            #endregion
 
 
-    /*es simplemente la pantalla para pedir datos*/
-    protected Campo SolicitarDatosCampo() // acá campo es un abstracción de datos!!!
+            fActividadAdm.ShowDialog();
+
+            continuar = fActividadAdm.DialogResult == DialogResult.Retry ||
+                            fActividadAdm.DialogResult == DialogResult.TryAgain;
+        }
+    }
+
+    #endregion
+
+    #region datos
+    protected Campo SolicitarDatosCampo()
     {
         FormCampoDatos formCampoDatos = new FormCampoDatos();
 
         //solicito los valores al usuario
         if (formCampoDatos.ShowDialog() == DialogResult.OK)
-        {            
+        {
             string identificadorCampo1 = formCampoDatos.tbIdentificadorCampo.Text;
             double superficieCampo1 = Convert.ToDouble(formCampoDatos.tbSuperficieCampo.Text);
 
@@ -118,8 +260,8 @@ public partial class FormPrincipal : Form
             formEstanciaDatos.DialogResult == DialogResult.TryAgain;
 
         //sigo solicitando datos al usuario mientras esté en editando y no haya completado los datos de la estancia
-        while (estaEditando && estancia==null)
-        {         
+        while (estaEditando && estancia == null)
+        {
             //verifico si quiere! cargar los datos del campo, si "si", me guardo los datos
             //si quiere!, tengo que pedir los datos
             if (formEstanciaDatos.DialogResult == DialogResult.TryAgain)
@@ -161,59 +303,6 @@ public partial class FormPrincipal : Form
             Close();
     }
 
-    protected void AdministrarUnCampo(int idxCampo)
-    {
-        if (idxCampo >=0)
-        {
-            FormUnCampoAdm formUnCampoAdm = new FormUnCampoAdm();
-
-            Campo campoSeleccionado = estancia.VerCampo(idxCampo);
-
-            for (int idx = 0; idx < campoSeleccionado.CantidadParcelas; idx++)
-            {
-                formUnCampoAdm.lsbParcelas.Items.Add(campoSeleccionado.VerParcela(idx));
-            }
-
-            formUnCampoAdm.ShowDialog();
-
-            bool enEdicion = formUnCampoAdm.DialogResult == DialogResult.Retry ||
-                                formUnCampoAdm.DialogResult == DialogResult.TryAgain;
-            while (enEdicion)
-            {
-
-                //actualizo el listado
-                if (formUnCampoAdm.DialogResult == DialogResult.Retry)
-                {
-                    formUnCampoAdm.lsbParcelas.Items.Clear();
-                    for (int idx = 0; idx < campoSeleccionado.CantidadParcelas; idx++)
-                    {
-                        formUnCampoAdm.lsbParcelas.Items.Add(campoSeleccionado.VerParcela(idx));
-                    }
-                }
-
-                //agregar parcela o particion
-                if (formUnCampoAdm.DialogResult == DialogResult.TryAgain)
-                {
-                    Parcela parcela=SolicitarDatosParcela();
-                    bool exito=campoSeleccionado.CrearParcela(parcela.Identificador, parcela.Superficie);
-                    if (exito)
-                    {
-                        formUnCampoAdm.lsbParcelas.Items.Add(parcela);
-                    }
-                    else
-                    {
-                        MessageBox.Show("No se pudo realizar la partición.");
-                    }
-                }
-
-                formUnCampoAdm.ShowDialog();
-
-                enEdicion = formUnCampoAdm.DialogResult == DialogResult.Retry ||
-                                formUnCampoAdm.DialogResult == DialogResult.TryAgain;
-            }
-        }
-    }
-
     public Parcela SolicitarDatosParcela()
     {
         FormParcelaDatos formParcelaDatos = new FormParcelaDatos();
@@ -223,12 +312,37 @@ public partial class FormPrincipal : Form
             string id = formParcelaDatos.tbIdentificadorCampo.Text;
             double superficie = Convert.ToDouble(formParcelaDatos.tbSuperficieCampo.Text);
 
-            Parcela parcela=new Parcela(id, superficie);
+            Parcela parcela = new Parcela(id, superficie);
             return parcela;
         }
         return null;
     }
 
+    protected Actividad SolicitarDatosActividad()
+    {
+        FormActividadDatos fActividadDatos = new FormActividadDatos();
+
+        //solicito los valores al usuario
+        if (fActividadDatos.ShowDialog() == DialogResult.OK)
+        {
+            int periodo = Convert.ToInt32(fActividadDatos.tbPeriodoActividad.Text);
+            string descripcion = fActividadDatos.tbDescripcionActividad.Text;
+            int tipo = fActividadDatos.cmbTipoActividad.SelectedIndex;
+
+            //el campo aquí es un modelo de datos, un objeto de transporte
+            Actividad actividad = null;
+            switch (tipo)
+            {
+                case 0:
+                    actividad = new Agricola(periodo,descripcion);
+                    break;
+            }
+
+            return actividad;
+        }
+
+        return null;
+    }
     #endregion
 
 }

@@ -19,4 +19,9 @@ public class Parcela:IComparable
             return Identificador.CompareTo(otra.Identificador);
         return -1;
     }
+
+    public override string ToString()
+    {
+        return $"{Identificador}({Superficie:f2})";
+    }
 }
